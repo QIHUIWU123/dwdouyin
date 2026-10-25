@@ -31,7 +31,7 @@
    gradle :app:assembleRelease
    ```
 
-2. API Key 配置：复制 `app/src/main/assets/api_keys.properties.example` 为 `api_keys.properties`，填入你自己的 Key（申请地址见 https://api-new.ifphp.com ）。**没有 Key 也能构建**，只是 dyjx/svparse 两个通道不可用，可走 suxun 兜底通道。
+2. API Key 配置：复制 `app/src/main/assets/api_keys.properties.example` 为 `api_keys.properties`，填入你自己的 Key（申请地址见 https://api-new.ifphp.com ）。**没有 Key 也能构建**，只是 dyjx/svparse 两个通道不可用，可走 suxun api地址(https://api.suxun.site）兜底通道。
 
 3. 签名：`keystore.properties` 不在仓库中（含密码），自行生成：
 
