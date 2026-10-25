@@ -349,7 +349,8 @@ fun HomeScreen(
                         )
                     }
 
-                    // 批量开关
+                    // 批量开关（3.3.0：抖音风控收紧，主页批量暂不可用——入口隐藏，功能代码保留待恢复）
+                    if (false) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
@@ -371,6 +372,7 @@ fun HomeScreen(
                         Text("主页批量模式", fontSize = 13.sp, color = TextDark)
                         Spacer(Modifier.width(8.dp))
                         Text("仅限学习·≤20条", fontSize = 11.sp, color = WarnAmber)
+                    }
                     }
                 }
             }

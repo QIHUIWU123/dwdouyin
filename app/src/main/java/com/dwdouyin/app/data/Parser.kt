@@ -926,8 +926,9 @@ class DouyinParser(private val context: Context) {
         saveApiChannels(all)
     }
 
-    /** 设置页调用：新增自定义通道。返回错误信息（null=成功）。 */
-    fun addApiChannel(name: String, urlTemplate: String, parserType: String): String? {
+    /** 设置页调用：新增自定义通道。返回错误信息（null=成功）。
+     *  3.3.0：支持可选 API Key（部分接口需要 X-API-Key 鉴权头）。 */
+    fun addApiChannel(name: String, urlTemplate: String, parserType: String, apiKey: String = ""): String? {
         if (!urlTemplate.contains("{URL}")) {
             return "URL 模板必须包含 {URL} 占位符"
         }
@@ -939,6 +940,7 @@ class DouyinParser(private val context: Context) {
                 urlTemplate,
                 if (parserType in listOf("suxun", "bugpk")) parserType else "suxun",
                 true, false,
+                apiKey.trim(),
             ),
         )
         saveApiChannels(all)

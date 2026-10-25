@@ -263,6 +263,7 @@ fun SettingsScreen(parser: DouyinParser) {
                 var apiStatus by remember { mutableStateOf("") }
                 var newName by remember { mutableStateOf("") }
                 var newUrl by remember { mutableStateOf("") }
+                var newKey by remember { mutableStateOf("") }
                 var newType by remember { mutableStateOf("suxun") }
 
                 Column(
@@ -294,7 +295,10 @@ fun SettingsScreen(parser: DouyinParser) {
                                 Column {
                                     Text(ch.name, fontSize = 13.sp, color = TextDark)
                                     Text(
-                                        if (ch.builtin) "内置通道" else "自定义通道",
+                                        when {
+                                            !ch.builtin -> if (ch.apiKeyHeader.isNotBlank()) "自定义通道 · 需要Key" else "自定义通道"
+                                            else -> "内置通道"
+                                        },
                                         fontSize = 10.sp,
                                         color = TextDim,
                                     )
@@ -317,7 +321,7 @@ fun SettingsScreen(parser: DouyinParser) {
                             }
                         }
                     }
-                    // 新增表单
+                    // 新增表单（3.3.0：加 API Key 输入，部分接口需要鉴权）
                     androidx.compose.material3.OutlinedTextField(
                         value = newName,
                         onValueChange = { newName = it },
@@ -330,6 +334,24 @@ fun SettingsScreen(parser: DouyinParser) {
                         onValueChange = { newUrl = it },
                         label = { Text("URL 模板（含 {URL}）") },
                         singleLine = true,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                    var keyVisible by remember { mutableStateOf(false) }
+                    androidx.compose.material3.OutlinedTextField(
+                        value = newKey,
+                        onValueChange = { newKey = it },
+                        label = { Text("API Key（可选，需要鉴权的接口填）") },
+                        singleLine = true,
+                        visualTransformation = if (keyVisible) {
+                            androidx.compose.ui.text.input.VisualTransformation.None
+                        } else {
+                            androidx.compose.ui.text.input.PasswordVisualTransformation()
+                        },
+                        trailingIcon = {
+                            androidx.compose.material3.IconButton(onClick = { keyVisible = !keyVisible }) {
+                                Text(if (keyVisible) "隐藏" else "显示", fontSize = 11.sp, color = TextGray)
+                            }
+                        },
                         modifier = Modifier.fillMaxWidth(),
                     )
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -347,10 +369,11 @@ fun SettingsScreen(parser: DouyinParser) {
                         GradientButton(
                             text = "添加接口",
                             onClick = {
-                                val err = parser.addApiChannel(newName, newUrl, newType)
+                                val err = parser.addApiChannel(newName, newUrl, newType, newKey)
                                 if (err == null) {
                                     newName = ""
                                     newUrl = ""
+                                    newKey = ""
                                     apiStatus = "✅ 已添加"
                                 } else {
                                     apiStatus = err
@@ -369,7 +392,7 @@ fun SettingsScreen(parser: DouyinParser) {
             GlassCard(cornerRadius = 18) {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                     Text("关于", fontWeight = FontWeight.Bold, color = TextPrimary, fontSize = 15.sp)
-                    Text("dwdouyin 抖音作品解析下载工具 v3.2.0", fontSize = 12.sp, color = TextSecondary)
+                    Text("dwdouyin 抖音作品解析下载工具 v3.3.0", fontSize = 12.sp, color = TextSecondary)
                     Text(
                         "仅用于个人技术学习，禁止商用、批量爬取，遵守版权法规。",
                         fontSize = 11.sp,
