@@ -1,0 +1,4 @@
+# 复制本文件为 api_keys.properties 并填入你自己的 Key（该文件不进 git）
+# Key 申请地址：https://api-new.ifphp.com （BugPk Api）
+dyjx=bp_live_你的抖音解析Key
+svparse=bp_live_你的聚合解析Key

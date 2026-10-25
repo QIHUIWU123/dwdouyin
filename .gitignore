@@ -1,0 +1,21 @@
+# 构建产物
+build/
+app/build/
+.gradle/
+.kotlin/
+local.properties
+
+# 签名与密钥（不进 git）
+*.keystore
+*.jks
+keystore.properties
+app/src/main/assets/api_keys.properties
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# 系统文件
+.DS_Store
+Thumbs.db

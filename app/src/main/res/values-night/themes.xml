@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 抖音作品解析下载工具 - dwdouyin（仅用于个人技术学习，禁止商用、批量爬取，遵守版权法规） -->
+<resources>
+    <style name="Theme.Dwdouyin" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">#F6F7F9</item>
+        <item name="android:statusBarColor">#F6F7F9</item>
+        <item name="android:navigationBarColor">#FFFFFF</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>
